@@ -1,0 +1,9 @@
+/web-app/node_modules/
+/todo-service/storage-service/data
+/todo-service/report
+/todo-service/build
+.vscode
+.env
+.idea
+.DS_Store
+c_all.sh

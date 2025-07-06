@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/sahidhossen/todo/proto/task_service"; // Important: This defines the Go package name
+
+package task_service;
+
+// Task represents a to-do item.
+message Task {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+  google.protobuf.Timestamp created_at = 5;  
+  google.protobuf.Timestamp updated_at = 6;  
+}
+
+// Request and Response messages for CRUD operations
+
+// CreateTask
+message CreateTaskRequest {
+  string title = 1;
+  string description = 2;
+}
+
+message CreateTaskResponse {
+  Task task = 1;
+}
+
+// GetTask
+message GetTaskRequest {
+  string id = 1;
+}
+
+message GetTaskResponse {
+  Task task = 1;
+}
+
+// ListTasks
+message ListTasksRequest {}
+
+message ListTasksResponse {
+  repeated Task tasks = 1;
+}
+
+// CompleteTask
+message CompleteTaskRequest {
+  string id = 1;
+}
+
+message CompleteTaskResponse {
+  Task task = 1;
+}
+
+// ToggleTaskCompletion
+message ToggleTaskCompletionRequest {
+  string id = 1;
+}
+
+message ToggleTaskCompletionResponse {
+  Task task = 1;
+}
+
+// GetTaskStats
+message GetTaskStatsRequest {}
+
+message GetTaskStatsResponse {
+  int32 total_tasks = 1;
+  int32 completed_tasks = 2;
+  int32 pending_tasks = 3;
+}
+
+// TaskService defines the gRPC service for task operations.
+service TaskService {
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+  rpc CompleteTask(CompleteTaskRequest) returns (CompleteTaskResponse);
+  rpc ToggleTaskCompletion(ToggleTaskCompletionRequest) returns (ToggleTaskCompletionResponse);
+  rpc GetTaskStats(GetTaskStatsRequest) returns (GetTaskStatsResponse);
+}
